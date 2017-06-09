@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: memcached-service-moodle01
+  namespace: siad-moodle-dev-01
+spec:
+  selector:
+    app: mem-moodle01-dev
+  ports:
+    - protocol: TCP
+      port: 11211
+      targetPort: 11211
+  type: NodePort  
