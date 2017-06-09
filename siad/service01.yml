@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: moodle01-service
+  namespace: siad-moodle-dev-01
+spec:
+  selector:
+    app: moodle01-dev
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort  

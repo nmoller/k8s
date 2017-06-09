@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: memcached-dep-moodle01
+  namespace: siad-moodle-dev-01
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: moodle01-dev
+    spec:
+      containers:
+      - image: bitnami/memcached:1.4.25-r6
+        ports:
+        - containerPort: 11211
+        resources:
+          limits:
+            cpu: 70m
+            memory: 150Mi
+          requests:
+            cpu: 60m
+            memory: 130Mi

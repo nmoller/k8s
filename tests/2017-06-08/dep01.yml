@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: moodle01-deployment
+  namespace: siad-moodle-dev-01
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: moodle01-dev
+    spec:
+      containers:
+      - image: ubuntu
+        name: moodle-web01
+        # Just spin & wait forever
+        command: [ "/bin/bash", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
+        resources:
+            limits:
+              cpu: 70m
+              memory: 100Mi
+            requests:
+              cpu: 50m
+              memory: 90Mi
+        volumeMounts:
+        - mountPath: /opt/cache
+          name: moodle-cache01
+      - image: ubuntu
+        name: moodle-web02
+        # Just spin & wait forever
+        command: [ "/bin/bash", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
+        resources:
+            limits:
+              cpu: 70m
+              memory: 100Mi
+            requests:
+              cpu: 50m
+              memory: 90Mi
+        volumeMounts:
+        - mountPath: /opt/cache
+          name: moodle-cache01
+      volumes:
+      - name: moodle-cache01
+        emptyDir: 
+          medium: Memory

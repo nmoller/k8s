@@ -1,0 +1,28 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: moodle01
+  namespace: siad-moodle-dev-01
+spec:
+
+  volumes:
+    - name: moodle01-storage
+      persistentVolumeClaim:
+       claimName: pvc-siad-moodle-dev-01-vol01
+
+  containers:
+    - name: moodle01-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+      - mountPath: "/opt/cron"
+        name: moodle01-storage
+      resources:
+            limits:
+              cpu: 70m
+              memory: 100Mi
+            requests:
+              cpu: 50m
+              memory: 90Mi

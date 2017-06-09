@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: moodle01-web
+  namespace: siad-moodle-dev-01
+spec:
+  containers:
+  - image: ubuntu
+    name: moodle-web01
+    # Just spin & wait forever
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
+    volumeMounts:
+    - mountPath: /opt/cache
+      name: moodle-cache01
+  - image: ubuntu
+    name: moodle-web02
+    # Just spin & wait forever
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
+    volumeMounts:
+    - mountPath: /opt/cache
+      name: moodle-cache01
+  volumes:
+  - name: moodle-cache01
+    emptyDir: 
+      medium: Memory

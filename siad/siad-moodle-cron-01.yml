@@ -1,0 +1,35 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: moodle-cron01
+  namespace: siad-moodle-dev-01
+spec:
+  schedule: "*/2 * * * *"
+  successfulJobsHistoryLimit: 10
+  failedJobsHistoryLimit: 10
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: moodle01-storage
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-vol01
+          containers:
+          - name: moodle01-container
+            image: ubuntu:14.04
+            volumeMounts:
+            - mountPath: "/opt/cron"
+              name: moodle01-storage
+            resources:
+                  limits:
+                    cpu: 70m
+                    memory: 90Mi
+                  requests:
+                    cpu: 50m
+                    memory: 70Mi
+            args:
+            - /bin/sh
+            - -c
+            - /opt/cron/cron01.sh
+          restartPolicy: OnFailure
