@@ -8,7 +8,7 @@ spec:
   template:
     metadata:
       labels:
-        app: moodle01-dev
+        app: mem-moodle01-dev
     spec:
       containers:
       - name: mem-moodle01-dev
