@@ -11,7 +11,8 @@ spec:
         app: moodle01-dev
     spec:
       containers:
-      - image: bitnami/memcached:1.4.25-r6
+      - name: mem-moodle01-dev
+        image: bitnami/memcached:1.4.25-r6
         ports:
         - containerPort: 11211
         resources:
