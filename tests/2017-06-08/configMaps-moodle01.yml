@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: moodle01-config
+data:
+  dataroot: /var/www/moodledata
+  wwwroot: http://test.com
+  memcached: moodle01-mem1:11211,moodle01-mem2:11211

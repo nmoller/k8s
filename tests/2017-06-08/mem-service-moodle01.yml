@@ -5,7 +5,7 @@ metadata:
   namespace: siad-moodle-dev-01
 spec:
   selector:
-    app: mem-moodle01-dev
+    app: mem-session-moodle01-dev
   ports:
     - protocol: TCP
       port: 11211

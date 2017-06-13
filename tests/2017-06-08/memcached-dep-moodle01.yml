@@ -1,14 +1,14 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: memcached-dep-moodle01
+  name: memcached-ses01-moodle01-dev
   namespace: siad-moodle-dev-01
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
-      labels:
-        app: mem-moodle01-dev
+        labels:
+          app: mem-session01-moodle01-dev
     spec:
       containers:
       - name: mem-moodle01-dev
@@ -18,7 +18,61 @@ spec:
         resources:
           limits:
             cpu: 70m
-            memory: 150Mi
+            memory: 100Mi
           requests:
             cpu: 60m
-            memory: 130Mi
+            memory: 100Mi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: memcached-ses01-moodle01-dev
+  namespace: siad-moodle-dev-01
+spec:
+  selector:
+    app: mem-session01-moodle01-dev
+  ports:
+    - protocol: TCP
+      port: 11211
+      targetPort: 11211
+  type: NodePort  
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: memcached-ses02-moodle01-dev
+  namespace: siad-moodle-dev-01
+spec:
+  replicas: 1
+  template:
+    metadata:
+        labels:
+          app: mem-session02-moodle01-dev
+    spec:
+      containers:
+      - name: mem-moodle01-dev
+        image: bitnami/memcached:1.4.25-r6
+        ports:
+        - containerPort: 11211
+        resources:
+          limits:
+            cpu: 70m
+            memory: 100Mi
+          requests:
+            cpu: 60m
+            memory: 100Mi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: memcached-ses02-moodle01-dev
+  namespace: siad-moodle-dev-01
+spec:
+  selector:
+    app: mem-session02-moodle01-dev
+  ports:
+    - protocol: TCP
+      port: 11211
+      targetPort: 11211
+  type: NodePort  
