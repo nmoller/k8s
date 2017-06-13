@@ -1,14 +1,14 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: memcached-ses01-moodle01-dev
+  name: memcached-app01-moodle01-dev
   namespace: siad-moodle-dev-01
 spec:
   replicas: 1
   template:
     metadata:
         labels:
-          app: mem-session01-moodle01-dev
+          app: memcached-app01-moodle01-dev
     spec:
       containers:
       - name: mem-moodle01-dev
@@ -18,21 +18,21 @@ spec:
         resources:
           limits:
             cpu: 200m
-            memory: 900Mi
+            memory: 700Mi
           requests:
-            cpu: 200m
-            memory: 900Mi
+            cpu: 200mm
+            memory: 700Mi
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: memcached-ses01-moodle01-dev
+  name: memcached-app01-moodle01-dev
   namespace: siad-moodle-dev-01
 spec:
   selector:
-    app: mem-session01-moodle01-dev
+    app: memcached-app01-moodle01-dev
   ports:
     - protocol: TCP
       port: 11211
       targetPort: 11211
-  type: NodePort  
+  type: NodePort 

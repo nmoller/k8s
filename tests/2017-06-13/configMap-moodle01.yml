@@ -5,5 +5,5 @@ metadata:
   namespace: siad-moodle-dev-01
 data:
   dataroot: /var/www/moodledata
-  wwwroot: https://192.168.99.100:31001
-  memcached: memcached-ses01-moodle01-dev.siad-moodle-dev-01:11211
+  wwwroot: https://192.168.99.100:32324
+  memcached: memcached-ses01-moodle01-dev:11211

@@ -11,22 +11,22 @@ spec:
         app: moodle01-dev
     spec:
       containers:
-      - image: nmolleruq/uqammdl:v0.2
+      - image: nmolleruq/uqammdl:v0.4
         name: moodle-web01
         resources:
             limits:
-              cpu: 70m
-              memory: 100Mi
+              cpu: 500m
+              memory: 1Gi
             requests:
-              cpu: 50m
-              memory: 100Mi
+              cpu: 500m
+              memory: 1Gi
         env:
         - name: MDL_DATAROOT
           valueFrom:
             configMapKeyRef:
               name: moodle01-config
               key: dataroot
-        - name: MDL_MEMCACHED
+        - name: MDL_MEMSESSION
           valueFrom:
             configMapKeyRef:
               name: moodle01-config

@@ -6,9 +6,9 @@ metadata:
 spec:
   hard:
     cpu: "2"
-    memory: 512Mi
+    memory: 3Gi
     pods: "8"
     replicationcontrollers: "20"
     resourcequotas: "1"
     services: "4"
-    limits.memory: 512Mi
+    limits.memory: 3Gi
