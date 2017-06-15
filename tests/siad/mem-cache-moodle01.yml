@@ -20,7 +20,7 @@ spec:
             cpu: 500m
             memory: 200Mi
           requests:
-            cpu: 30mm
+            cpu: 30m
             memory: 100Mi
 ---
 apiVersion: extensions/v1beta1
@@ -48,8 +48,8 @@ spec:
             cpu: 30m
             memory: 100Mi
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: memcached-ses01-moodle01-dev
   namespace: siad-moodle-dev-01
@@ -62,8 +62,8 @@ spec:
       targetPort: 11211
   type: NodePort  
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: memcached-app01-moodle01-dev
   namespace: siad-moodle-dev-01
