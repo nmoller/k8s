@@ -18,15 +18,16 @@ spec:
       - name: moodle01-dev
         image: eboraas/apache-php
         volumeMounts:
-          - mountPath: "/var/www"
+          - mountPath: "/var/www/moodledata"
             name: moodle01-storage
         resources:
               limits:
-                cpu: 70m
-                memory: 90Mi
+                cpu: 80m
+                memory: 210Mi
               requests:
                 cpu: 50m
                 memory: 70Mi
         ports:
         - containerPort: 80
-        - containerPort: 443
+      nodeSelector:
+        group: worker-dev
