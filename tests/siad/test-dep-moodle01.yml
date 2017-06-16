@@ -4,7 +4,7 @@ metadata:
   name: moodle01-deployment
   namespace: siad-moodle-dev-01
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -16,13 +16,6 @@ spec:
       containers:
       - image: nmolleruq/uqammdl:v0.7
         name: moodle-web01
-        resources:
-            limits:
-              cpu: 1
-              memory: 600Mi
-            requests:
-              cpu: 140m
-              memory: 200Mi
         env:
         - name: MDL_DATAROOT
           valueFrom:
