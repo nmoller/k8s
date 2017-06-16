@@ -14,7 +14,7 @@ spec:
       nodeSelector:
         group: worker-dev
       containers:
-      - image: nmolleruq/uqammdl:v0.6
+      - image: nmolleruq/uqammdl:v0.7
         name: moodle-web01
         resources:
             limits:

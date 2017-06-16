@@ -5,6 +5,6 @@ metadata:
   namespace: siad-moodle-dev-01
 data:
   dataroot: /var/www/moodledata
-  wwwroot: https://acorriger
+  wwwroot: https://moodle-k8s.dev.uqam.ca
   memsession: memcached-ses01-moodle01-dev:11211
   localcachedir: /SANcache/local
