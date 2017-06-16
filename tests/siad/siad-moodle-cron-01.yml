@@ -68,5 +68,5 @@ spec:
             args:
             - /bin/sh
             - -c
-            - php /var/www/html/admin/cli/cron.php
+            - sudo -u www-data php /var/www/html/admin/cli/cron.php
           restartPolicy: OnFailure
