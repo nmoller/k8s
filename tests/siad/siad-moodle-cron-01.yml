@@ -17,7 +17,7 @@ spec:
             persistentVolumeClaim:
              claimName: pvc-siad-moodle-dev-01-vol01
           containers:
-          - image: nmolleruq/mdlcron:v0.1
+          - image: nmolleruq/mdlcron:v0.5
             name: moodle-cron01
             env:
             - name: MDL_DATAROOT
@@ -68,5 +68,5 @@ spec:
             args:
             - /bin/sh
             - -c
-            - sudo -u www-data php /var/www/html/admin/cli/cron.php
-          restartPolicy: OnFailure
+            - /opt/moodle/cron/generate-cron.sh 2> /dev/null
+          restartPolicy: Never
