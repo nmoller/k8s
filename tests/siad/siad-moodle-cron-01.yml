@@ -17,7 +17,7 @@ spec:
             persistentVolumeClaim:
              claimName: pvc-siad-moodle-dev-01-vol01
           containers:
-          - image: nmolleruq/mdlcron:v0.5
+          - image: nmolleruq/mdlcron:v0.6Panopto
             name: moodle-cron01
             env:
             - name: MDL_DATAROOT

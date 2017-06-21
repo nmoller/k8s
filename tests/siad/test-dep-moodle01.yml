@@ -11,7 +11,7 @@ spec:
         app: moodle01-dev
     spec:
       containers:
-      - image: nmolleruq/uqammdl:v0.9.1Panopto
+      - image: nmolleruq/uqammdl:v0.9.3Panopto
         name: moodle-web01
         env:
         - name: MDL_DATAROOT
