@@ -11,9 +11,14 @@ spec:
         app: moodle01-dev
     spec:
       containers:
-      - image: nmolleruq/uqammdl:v0.9.41PanSaml
+      - image: nmolleruq/uqammdl:v0.9.42PanSaml
         name: moodle-web01
         env:
+        - name: MDL_DBTYPE
+          valueFrom:
+            configMapKeyRef:
+              name: moodle01-config
+              key: dbtype
         - name: MDL_DATAROOT
           valueFrom:
             configMapKeyRef:
