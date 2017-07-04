@@ -13,6 +13,8 @@ spec:
       containers:
       - name: mem-moodle01-dev
         image: memcached:1.4.37
+        command: ["memcached"]
+        args: ["-m", "512", "-c", "800", "-vv"]
         ports:
         - containerPort: 11211
         
@@ -32,6 +34,8 @@ spec:
       containers:
       - name: mem-moodle01-dev
         image: memcached:1.4.37
+        command: ["memcached"]
+        args: ["-m", "180", "-c", "800", "-vv"]
         ports:
         - containerPort: 11211
 ---
@@ -50,6 +54,8 @@ spec:
       containers:
       - name: mem-moodle02-dev
         image: memcached:1.4.37
+        command: ["memcached"]
+        args: ["-m", "180", "-c", "800", "-vv"]
         ports:
         - containerPort: 11211
         
