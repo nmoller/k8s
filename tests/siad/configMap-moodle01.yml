@@ -6,6 +6,6 @@ metadata:
 data:
   dataroot: /var/www/moodledata
   wwwroot: https://moodle-k8s.dev.uqam.ca
-  memsession: memcached-ses01-moodle01-dev:11211,memcached-ses02-moodle01-dev:11211
+  memsession: memcached-ses01-moodle01-dev.siad-moodle-dev-01:11211,memcached-ses02-moodle01-dev.siad-moodle-dev-01:11211
   localcachedir: /SANcache/local
   dbtype: mariadb
