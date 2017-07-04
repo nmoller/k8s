@@ -4,7 +4,7 @@ metadata:
   name: moodle-cron01
   namespace: siad-moodle-dev-01
 spec:
-  schedule: "*/10 * * * *"
+  schedule: "15 * * * *"
   jobTemplate:
     spec:
       template:
@@ -17,7 +17,7 @@ spec:
             persistentVolumeClaim:
              claimName: pvc-siad-moodle-dev-01-vol01
           containers:
-          - image: nmolleruq/mdlcron:v0.9.42PanSaml
+          - image: nmolleruq/mdlcron:v0.9.46Saml
             name: moodle-cron01
             env:
             - name: MDL_DBTYPE
@@ -73,5 +73,5 @@ spec:
             args:
             - /bin/sh
             - -c
-            - /opt/moodle/cron/generate-cron.sh 2> /dev/null
+            - /tmp/generate-cron.sh 2> /dev/null
           restartPolicy: Never
