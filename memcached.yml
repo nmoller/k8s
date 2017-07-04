@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: memcached-app01-moodle01-dev
+  namespace: siad-moodle-dev-01
+spec:
+  replicas: 1
+  template:
+    metadata:
+        labels:
+          app: memcached-app01-moodle01-dev
+    spec:
+      containers:
+      - name: mem-moodle01-dev
+        image: memcached:1.4.37
+        command: ["memcached"]
+        # -c max de connexions --vv niveau de log
+        args: ["-m", "1024", "-c", "800", "-vv"]
+        ports:
+        - containerPort: 11211
