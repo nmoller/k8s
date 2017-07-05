@@ -4,15 +4,15 @@ metadata:
   name: moodle-cron01
   namespace: siad-moodle-dev-01
 spec:
-  schedule: "15 * * * *"
+  schedule: "*/15 * * * *"
   jobTemplate:
     spec:
       template:
         spec:
           volumes:
-          - name: moodle-cache01
-            emptyDir: 
-              medium: Memory
+          #- name: moodle-cache01
+          #  emptyDir: 
+          #    medium: Memory
           - name: moodle01-storage
             persistentVolumeClaim:
              claimName: pvc-siad-moodle-dev-01-vol01
@@ -66,8 +66,8 @@ spec:
                   name: secrets-moodle01-dev
                   key: db_password
             volumeMounts:
-            - mountPath: /SANcache
-              name: moodle-cache01
+            #- mountPath: /SANcache
+            #  name: moodle-cache01
             - mountPath: /var/www/moodledata
               name: moodle01-storage
             args:
