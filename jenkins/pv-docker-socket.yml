@@ -1,0 +1,17 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-siad-jenkins-docker-socket
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  hostPath:
+    path: "/var/run/docker.sock"
+  claimRef:
+    namespace: siad-jenkins-dev-01
+    name: pvc-siad-jenkins-docker-socket

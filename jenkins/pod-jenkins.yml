@@ -8,17 +8,24 @@ metadata:
 
 spec:
   containers:
-    - image: jenkins
+    - image: wsimmonds/jenkins-kubernetes:2.8
       name: siad-jenkins-jenkins-01
+      #command: ["/bin/sh"]
+      #args: ["-c", "chown -R 1000:1000 /var/jenkins_home"]
       ports:
         - containerPort: 8080
         - containerPort: 50000
-      #volumeMounts:
-      #  - mountPath: "/var/jenkins_home"
-      #    name: siad-jenkins-dev-01-storage
-      # command: []
-      # args: ["-u 1000"]
-  #volumes:
-    #- name: siad-jenkins-dev-01-storage
-    #  persistentVolumeClaim:
-    #   claimName: pvc-siad-jenkins-dev-01
+      volumeMounts:
+        - mountPath: "/var/jenkins_home"
+          name: siad-jenkins-dev-01-storage
+        - mountPath: "/var/run/docker.sock"
+          name: siad-jenkins-dev-01-sock
+  securityContext: 
+            fsGroup: 1000         
+  volumes:
+    - name: siad-jenkins-dev-01-storage
+      persistentVolumeClaim:
+       claimName: pvc-siad-jenkins-dev-01
+    - name: siad-jenkins-dev-01-sock
+      persistentVolumeClaim:
+       claimName: pvc-siad-jenkins-docker-socket

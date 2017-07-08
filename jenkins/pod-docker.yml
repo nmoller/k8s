@@ -7,5 +7,14 @@ metadata:
     app: siad-jenkins-docker-01
 spec:
   containers:
-  - image: nmolleruq/docker
+  - image: docker
     name: siad-jenkins-docker-01
+    ports:
+      - containerPort: 2375
+    volumeMounts:
+        - mountPath: "/var/run/docker.sock"
+          name: siad-jenkins-dev-01-storage
+  volumes:
+    - name: siad-jenkins-dev-01-storage
+      persistentVolumeClaim:
+       claimName: pvc-siad-jenkins-docker-socket
