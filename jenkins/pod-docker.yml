@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: siad-jenkins-docker
+  namespace: siad-jenkins-dev-01
+  labels:
+    app: siad-jenkins-docker-01
+spec:
+  containers:
+  - image: nmolleruq/docker
+    name: siad-jenkins-docker-01

@@ -1,0 +1,18 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-siad-jenkins-dev-01
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  hostPath:
+    path: "/tmp/jenkins"
+  claimRef:
+    namespace: siad-jenkins-dev-01
+    name: pvc-siad-jenkins-dev-01
+  

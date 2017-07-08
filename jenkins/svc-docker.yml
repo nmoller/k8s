@@ -1,0 +1,15 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-tcpdocker-siad-jenkins-dev-01
+  namespace: siad-jenkins-dev-01
+spec:
+  selector:
+    app: siad-jenkins-docker-01
+  ports:
+    - protocol: TCP
+      port: 4243
+      targetPort: 4243
+      nodePort: 30044
+  type: NodePort

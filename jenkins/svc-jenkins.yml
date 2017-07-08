@@ -1,0 +1,30 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-web-siad-jenkins-dev-01
+  namespace: siad-jenkins-dev-01
+spec:
+  selector:
+    app: siad-jenkins-jenkins-01
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30043
+  type: NodePort
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-disco-siad-jenkins-dev-01
+  namespace: siad-jenkins-dev-01
+spec:
+  selector:
+    name: siad-jenkins-jenkins-01
+  ports:
+    - protocol: TCP
+      port: 50000
+      targetPort: 50000
+  type: NodePort
