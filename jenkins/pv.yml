@@ -6,12 +6,12 @@ metadata:
     type: local
 spec:
   capacity:
-    storage: 10Gi
+    storage: 20Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
   hostPath:
-    path: "/tmp/jenkins"
+    path: "/opt/k8s-data/jenkins"
   claimRef:
     namespace: siad-jenkins-dev-01
     name: pvc-siad-jenkins-dev-01
