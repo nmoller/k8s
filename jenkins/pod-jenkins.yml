@@ -8,7 +8,7 @@ metadata:
 
 spec:
   containers:
-    - image: wsimmonds/jenkins-kubernetes:2.8
+    - image: nmolleruq/jenkins
       name: siad-jenkins-jenkins-01
       #command: ["/bin/sh"]
       #args: ["-c", "chown -R 1000:1000 /var/jenkins_home"]
