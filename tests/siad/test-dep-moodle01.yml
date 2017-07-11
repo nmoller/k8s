@@ -11,8 +11,10 @@ spec:
         app: moodle01-dev
     spec:
       containers:
-      - image: nmolleruq/uqammdl:v0.9.45Saml
+      - image: nmolleruq/uqammdl:v0.9.46Saml
         name: moodle-web01
+        command: ["/bin/sh"]
+        args: ["-c", "php /var/www/html/admin/cli/compile-css.php; chown -R www-data:www-data /var/www/moodledata /SANcache;"]
         env:
         - name: MDL_DBTYPE
           valueFrom:
