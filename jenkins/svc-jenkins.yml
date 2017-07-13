@@ -10,7 +10,6 @@ spec:
   ports:
     - protocol: TCP
       port: 8080
-      targetPort: 8080
       nodePort: 30043
   type: NodePort
 
@@ -22,9 +21,9 @@ metadata:
   namespace: siad-jenkins-dev-01
 spec:
   selector:
-    name: siad-jenkins-jenkins-01
+    app: siad-jenkins-jenkins-01
   ports:
     - protocol: TCP
       port: 50000
-      targetPort: 50000
+      nodePort: 30344
   type: NodePort
