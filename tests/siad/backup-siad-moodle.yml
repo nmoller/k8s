@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name:   siad-backup-moodle-dev-01
+  namespace: siad-moodle-dev-01
+  labels:
+    app: siad-backup-moodle-dev-01
+
+spec:
+  containers:
+    - image: mariadb:latest
+      name: siad-backup-moodle-dev-01
+      command: ["/bin/sh"]
+      args: ["-c", "exec mysqldump -h$MDL_DBHOST -u$MDL_DBUSER -p$MDL_DBPASS  $MDL_DBNAME > /var/www/moodledata/backup/moodle_dump.sql"]
+      env:
+        - name: MDL_DBHOST
+          valueFrom:
+            secretKeyRef:
+              name: secrets-moodle01-dev
+              key: db_host
+        - name: MDL_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: secrets-moodle01-dev
+              key: db_name
+        - name: MDL_DBUSER
+          valueFrom:
+            secretKeyRef:
+              name: secrets-moodle01-dev
+              key: db_username
+        - name: MDL_DBPASS
+          valueFrom:
+            secretKeyRef:
+              name: secrets-moodle01-dev
+              key: db_password
+      volumeMounts:
+        - mountPath: "/var/www/moodledata"
+          name: siad-backup-dev-01-storage
+
+  restartPolicy: Never
+  securityContext: 
+            fsGroup: 33        
+  volumes:
+    - name: siad-backup-dev-01-storage
+      persistentVolumeClaim:
+       claimName: pvc-siad-moodle-dev-01-vol01
