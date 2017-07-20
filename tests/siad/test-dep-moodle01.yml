@@ -13,6 +13,13 @@ spec:
       containers:
       - image: nmolleruq/uqamstable:3.0.9-01
         name: moodle-web01
+        resources:
+            limits:
+              cpu: 1
+              memory: 550Mi
+            requests:
+              cpu: 50m
+              memory: 100Mi
         env:
         - name: MDL_DBTYPE
           valueFrom:
@@ -62,9 +69,9 @@ spec:
         volumeMounts:
         - mountPath: /var/www/moodledata
           name: moodle01-storage
-        - mountPath: /mnt/nfsweb
+        - mountPath: /mnt/NFSweb
           name: moodle01-nfsweb
-        - mountPath: /mnt/nfsinscription
+        - mountPath: /mnt/NFSinscription
           name: moodle01-nfsinscription
       volumes:
       - name: moodle01-storage
