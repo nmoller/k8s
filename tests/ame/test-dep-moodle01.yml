@@ -15,8 +15,8 @@ spec:
         name: moodle-web01
         resources:
             limits:
-              cpu: 800m
-              memory: 500Mi
+              cpu: 1
+              memory: 1200Mi
             requests:
               cpu: 50m
               memory: 100Mi

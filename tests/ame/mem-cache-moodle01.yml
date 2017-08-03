@@ -1,3 +1,4 @@
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -13,11 +14,17 @@ spec:
       containers:
       - name: mem-app
         image: memcached:1.4.37
+        resources:
+            limits:
+              cpu: 500m
+              memory: 400Mi
+            requests:
+              cpu: 50m
+              memory: 100Mi
         command: ["memcached"]
-        args: ["-m", "512", "-c", "800"]
+        args: ["-m", "380", "-c", "800"]
         ports:
-        - containerPort: 11211
-        
+        - containerPort: 11211     
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -34,26 +41,13 @@ spec:
       containers:
       - name: mem-ses
         image: memcached:1.4.37
-        command: ["memcached"]
-        args: ["-m", "180", "-c", "800"]
-        ports:
-        - containerPort: 11211
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: memcached-ses02
-  namespace: siad-moodleame-dev-01
-spec:
-  replicas: 1
-  template:
-    metadata:
-        labels:
-          app: mem-session02-moodleame01-dev
-    spec:
-      containers:
-      - name: mem-ses
-        image: memcached:1.4.37
+        resources:
+            limits:
+              cpu: 500m
+              memory: 200Mi
+            requests:
+              cpu: 50m
+              memory: 100Mi
         command: ["memcached"]
         args: ["-m", "180", "-c", "800"]
         ports:
@@ -68,20 +62,6 @@ metadata:
 spec:
   selector:
     app: mem-session01-moodleame01-dev
-  ports:
-    - protocol: TCP
-      port: 11211
-      targetPort: 11211
-  type: ClusterIP 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: memcached-ses02
-  namespace: siad-moodleame-dev-01
-spec:
-  selector:
-    app: mem-session02-moodleame01-dev
   ports:
     - protocol: TCP
       port: 11211
