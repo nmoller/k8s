@@ -30,7 +30,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: secrets-moodle01-dev
-              key: db_name
+              key: LDAP_bind_pw
         
         volumeMounts:
         - mountPath: /opt/gestioncodes/db
