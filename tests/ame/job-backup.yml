@@ -1,0 +1,78 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: ame-backup-job
+  namespace: siad-moodleame-dev-01
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: "57 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          
+          volumes:
+          - name: moodle01-storage
+            persistentVolumeClaim:
+             claimName: pvc-siad-moodleame-dev-01-vol01
+          containers:
+          - image: mysqlboy/docker-mydumper
+            name: dumper
+            env:
+            - name: MDL_DBTYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dbtype
+            - name: MDL_DATAROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dataroot
+            - name: MDL_MEMSESSION
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: memsession
+            - name: MDL_LOCALCACHEDIR
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: localcachedir
+            - name: MDL_WWWROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: wwwroot
+            - name: MDL_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_host
+            - name: MDL_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_name
+            - name: MDL_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_username
+            - name: MDL_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_password
+            volumeMounts:
+            - mountPath: /var/www/moodledata
+              name: moodle01-storage
+            args:
+            - /bin/sh
+            - -c
+            - mydumper 
+            - --user=${MDL_DBUSER} --password=${MDL_DBPASS} --host=${MDL_DBHOST}
+            - --outputdir="/var/www/moodledata/backups/$( date +%Y-%m-%d_%T )"
+            - --rows=500000 --compress --build-empty-files --threads=4 --compress-protocol
+          restartPolicy: Never
