@@ -6,12 +6,11 @@ metadata:
 spec:
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
-  schedule: "57 * * * *"
+  schedule: "32 * * * *"
   jobTemplate:
     spec:
       template:
         spec:
-          
           volumes:
           - name: moodle01-storage
             persistentVolumeClaim:
@@ -19,6 +18,13 @@ spec:
           containers:
           - image: mysqlboy/docker-mydumper
             name: dumper
+            resources:
+              limits:
+                cpu: 300m
+                memory: 200Mi
+              requests:
+                cpu: 100m
+                memory: 100Mi
             env:
             - name: MDL_DBTYPE
               valueFrom:
@@ -71,8 +77,5 @@ spec:
             args:
             - /bin/sh
             - -c
-            - mydumper 
-            - --user=${MDL_DBUSER} --password=${MDL_DBPASS} --host=${MDL_DBHOST}
-            - --outputdir="/var/www/moodledata/backups/$( date +%Y-%m-%d_%T )"
-            - --rows=500000 --compress --build-empty-files --threads=4 --compress-protocol
+            - mydumper  --user=${MDL_DBUSER} --password=${MDL_DBPASS} --host=${MDL_DBHOST} --outputdir="/var/www/moodledata/backups/$( date +%Y-%m-%d_%T )" --rows=500000 --compress --build-empty-files --threads=4 --compress-protocol -k
           restartPolicy: Never
