@@ -2,21 +2,21 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: moodle01-deployment
-  namespace: siad-moodleame-prod-01
+  namespace: siad-moodleame-dev-01
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: ame01-prod
+        app: ame01-dev
     spec:
       containers:
       - image: nmolleruq/uqammdl:v0.9.48Saml
         name: moodle-web01
         resources:
             limits:
-              cpu: 800m
-              memory: 500Mi
+              cpu: 500m
+              memory: 300Mi
             requests:
               cpu: 50m
               memory: 100Mi
@@ -77,4 +77,4 @@ spec:
       #    medium: Memory
       - name: moodle01-storage
         persistentVolumeClaim:
-         claimName: pvc-siad-moodleame-prod-01-vol01
+         claimName: pvc-siad-moodleame-dev-01-vol01
