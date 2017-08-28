@@ -2,13 +2,13 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: moodle01-deployment
-  namespace: siad-moodleame-dev-01
+  namespace: siad-moodleame-prod-01
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: ame01-dev
+        app: ame01-prod
     spec:
       containers:
       - image: nmolleruq/uqammdl:v0.9.48Saml
@@ -49,22 +49,22 @@ spec:
         - name: MDL_DBHOST
           valueFrom:
             secretKeyRef:
-              name: secrets-moodle01-dev
+              name: secrets-moodle01-prod
               key: db_host
         - name: MDL_DBNAME
           valueFrom:
             secretKeyRef:
-              name: secrets-moodle01-dev
+              name: secrets-moodle01-prod
               key: db_name
         - name: MDL_DBUSER
           valueFrom:
             secretKeyRef:
-              name: secrets-moodle01-dev
+              name: secrets-moodle01-prod
               key: db_username
         - name: MDL_DBPASS
           valueFrom:
             secretKeyRef:
-              name: secrets-moodle01-dev
+              name: secrets-moodle01-prod
               key: db_password
         volumeMounts:
         #- mountPath: /SANcache
@@ -77,4 +77,4 @@ spec:
       #    medium: Memory
       - name: moodle01-storage
         persistentVolumeClaim:
-         claimName: pvc-siad-moodleame-dev-01-vol01
+         claimName: pvc-siad-moodleame-prod-01-vol01

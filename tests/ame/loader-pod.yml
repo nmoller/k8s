@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: loader-pod
-  namespace: siad-moodleame-dev-01
+  namespace: siad-moodleame-prod-01
 spec:
   volumes:
   - name: moodle01-storage
     persistentVolumeClaim:
-     claimName: pvc-siad-moodleame-dev-01-vol01
+     claimName: pvc-siad-moodleame-prod-01-vol01
   containers:
   - image: mysqlboy/docker-mydumper
     name: dumper
@@ -47,22 +47,22 @@ spec:
     - name: MDL_DBHOST
       valueFrom:
         secretKeyRef:
-          name: secrets-moodle01-dev
+          name: secrets-moodle01-prod
           key: db_host
     - name: MDL_DBNAME
       valueFrom:
         secretKeyRef:
-          name: secrets-moodle01-dev
+          name: secrets-moodle01-prod
           key: db_name
     - name: MDL_DBUSER
       valueFrom:
         secretKeyRef:
-          name: secrets-moodle01-dev
+          name: secrets-moodle01-prod
           key: db_username
     - name: MDL_DBPASS
       valueFrom:
         secretKeyRef:
-          name: secrets-moodle01-dev
+          name: secrets-moodle01-prod
           key: db_password
     volumeMounts:
     - mountPath: /var/www/moodledata
