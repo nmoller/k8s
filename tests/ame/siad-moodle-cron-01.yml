@@ -1,0 +1,83 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: moodle-cron01
+  namespace: siad-moodleame-dev-01
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: "*/15 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: moodle01-storage
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodleame-dev-01-vol01
+          containers:
+          - image: nmolleruq/mdlcron:v1Saml
+            name: moodle-cron01
+            resources:
+              limits:
+                cpu: 400m
+                memory: 300Mi
+              requests:
+                cpu: 100m
+                memory: 100Mi
+            env:
+            - name: MDL_DBTYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dbtype
+            - name: MDL_DATAROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dataroot
+            - name: MDL_MEMSESSION
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: memsession
+            - name: MDL_LOCALCACHEDIR
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: localcachedir
+            - name: MDL_WWWROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: wwwroot
+            - name: MDL_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_host
+            - name: MDL_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_name
+            - name: MDL_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_username
+            - name: MDL_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_password
+            volumeMounts:
+            #- mountPath: /SANcache
+            #  name: moodle-cache01
+            - mountPath: /var/www/moodledata
+              name: moodle01-storage
+            args:
+            - /bin/sh
+            - -c
+            - /tmp/generate-cron.sh 2> /dev/null
+          restartPolicy: Never
