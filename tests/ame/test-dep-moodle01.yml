@@ -11,12 +11,12 @@ spec:
         app: ame01-prod
     spec:
       containers:
-      - image: nmolleruq/uqammdl:1Saml
+      - image: nmolleruq/uqammdl:v1Saml
         name: moodle-web01
         resources:
             limits:
               cpu: 500m
-              memory: 900Mi
+              memory: 1400Mi
             requests:
               cpu: 50m
               memory: 100Mi
