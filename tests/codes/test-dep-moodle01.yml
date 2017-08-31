@@ -11,7 +11,7 @@ spec:
         app: moodle01-dev
     spec:
       containers:
-      - image: nmolleruq/moodlecodes:v0.2
+      - image: nmolleruq/moodlecodes:v0.3
         name: moodle-web01
         resources:
             limits:
