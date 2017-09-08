@@ -19,7 +19,7 @@ spec:
               memory: 900Mi
             requests:
               cpu: 50m
-              memory: 100Mi
+              memory: 50Mi
         env:
         - name: MDL_DBTYPE
           valueFrom:
