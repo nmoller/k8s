@@ -2,6 +2,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: moodle01-config
-  namespace: siad-moodlecodes-dev-01
+  namespace: siad-moodlecodes-prod-01
 data:
-  LDAP_host_url: ldap1-dev.ena.uqam.ca
+  LDAP_host_url: ldap1.ena.uqam.ca

@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: web-service-moodle01
-  namespace: siad-moodlecodes-dev-01
+  namespace: siad-moodlecodes-prod-01
 spec:
   selector:
     app: moodle01-dev
@@ -10,6 +10,6 @@ spec:
     - port: 80
       protocol: TCP
       targetPort: 80
-      nodePort: 30052
+      nodePort: 30053
       name: http
   type: NodePort  
