@@ -11,7 +11,7 @@ spec:
         app: ame01-prod
     spec:
       containers:
-      - image: nmolleruq/uqammdl:v1.1Saml
+      - image: nmolleruq/uqammdl:v1.2Saml
         name: moodle-web01
         resources:
             limits:
