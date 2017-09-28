@@ -16,7 +16,7 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodleame-prod-01-vol01
           containers:
-          - image: nmolleruq/mdlcron:v1.21Saml
+          - image: nmolleruq/mdlcron:v1.22Saml
             name: moodle-cron01
             resources:
               limits:
