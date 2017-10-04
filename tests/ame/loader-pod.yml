@@ -70,6 +70,6 @@ spec:
     args:
     - /bin/sh
     - -c
-    - myloader --user=${MDL_DBUSER} --password=${MDL_DBPASS} --host=${MDL_DBHOST} --directory="/var/www/moodledata/backups/2017-08-28_12:14:53" --overwrite-tables --threads=10 --compress-protocol
+    - myloader --user=${MDL_DBUSER} --password=${MDL_DBPASS} --host=${MDL_DBHOST} --directory="/var/www/moodledata/backups/2017-10-04_14" --overwrite-tables --threads=10 --compress-protocol
     # - "trap : TERM INT; sleep infinity & wait"
   restartPolicy: Never
