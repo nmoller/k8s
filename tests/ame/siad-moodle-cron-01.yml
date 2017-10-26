@@ -6,7 +6,7 @@ metadata:
 spec:
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
-  schedule: "*/15 * * * *"
+  schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
@@ -16,7 +16,7 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodleame-dev-01-vol01
           containers:
-          - image: nmolleruq/mdlcron:v1.1Saml
+          - image: nmolleruq/mdlcron:v1.24Saml
             name: moodle-cron01
             resources:
               limits:
