@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: moodle01-config
+  namespace: siad-moodleame-prod-01
+data:
+  dataroot: /var/www/moodledata
+  wwwroot: https://moodleame.uqam.ca
+  memsession: memcached-ses01.siad-moodleame-prod-01:11211
+  localcachedir: /tmp/local
+  dbtype: mariadb

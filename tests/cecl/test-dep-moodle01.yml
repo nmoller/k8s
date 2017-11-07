@@ -1,0 +1,80 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: moodle01-deployment
+  namespace: siad-moodleame-prod-01
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ame01-prod
+    spec:
+      containers:
+      - image: nmolleruq/uqammdl:v1.26Saml
+        name: moodle-web01
+        resources:
+            limits:
+              cpu: 1
+              memory: 1400Mi
+            requests:
+              cpu: 50m
+              memory: 100Mi
+        env:
+        - name: MDL_DBTYPE
+          valueFrom:
+            configMapKeyRef:
+              name: moodle01-config
+              key: dbtype
+        - name: MDL_DATAROOT
+          valueFrom:
+            configMapKeyRef:
+              name: moodle01-config
+              key: dataroot
+        - name: MDL_MEMSESSION
+          valueFrom:
+            configMapKeyRef:
+              name: moodle01-config
+              key: memsession
+        - name: MDL_LOCALCACHEDIR
+          valueFrom:
+            configMapKeyRef:
+              name: moodle01-config
+              key: localcachedir
+        - name: MDL_WWWROOT
+          valueFrom:
+            configMapKeyRef:
+              name: moodle01-config
+              key: wwwroot
+        - name: MDL_DBHOST
+          valueFrom:
+            secretKeyRef:
+              name: secrets-moodle01-prod
+              key: db_host
+        - name: MDL_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: secrets-moodle01-prod
+              key: db_name
+        - name: MDL_DBUSER
+          valueFrom:
+            secretKeyRef:
+              name: secrets-moodle01-prod
+              key: db_username
+        - name: MDL_DBPASS
+          valueFrom:
+            secretKeyRef:
+              name: secrets-moodle01-prod
+              key: db_password
+        volumeMounts:
+        #- mountPath: /SANcache
+        #  name: moodle-cache01
+        - mountPath: /var/www/moodledata
+          name: moodle01-storage
+      volumes:
+      #- name: moodle-cache01
+      #  emptyDir: 
+      #    medium: Memory
+      - name: moodle01-storage
+        persistentVolumeClaim:
+         claimName: pvc-siad-moodleame-prod-01-vol01
