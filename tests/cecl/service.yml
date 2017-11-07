@@ -10,6 +10,6 @@ spec:
     - port: 80
       protocol: TCP
       targetPort: 80
-      nodePort: 30047
+      nodePort: 30070
       name: http
   type: NodePort  
