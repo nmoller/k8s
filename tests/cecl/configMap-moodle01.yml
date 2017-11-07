@@ -4,7 +4,7 @@ metadata:
   name: moodle01-config
   namespace: siad-moodlececl-dev-01
 data:
-  dataroot: /var/www/moodledata
+  dataroot: /mnt/NFS/moodledata
   wwwroot: https://moodleame.uqam.ca
   memsession: memcached-ses01.siad-moodlececl-dev-01:11211
   localcachedir: /tmp/local

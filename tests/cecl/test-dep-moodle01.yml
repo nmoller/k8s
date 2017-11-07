@@ -11,7 +11,7 @@ spec:
         app: ame01-prod
     spec:
       containers:
-      - image: nmolleruq/uqammdl:v1.26Saml
+      - image: nmolleruq/mdlhb-cecl:v1.1
         name: moodle-web01
         resources:
             limits:
@@ -69,7 +69,7 @@ spec:
         volumeMounts:
         #- mountPath: /SANcache
         #  name: moodle-cache01
-        - mountPath: /var/www/moodledata
+        - mountPath: /mnt/NFS
           name: moodle01-storage
       volumes:
       #- name: moodle-cache01
