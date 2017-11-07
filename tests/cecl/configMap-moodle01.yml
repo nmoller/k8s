@@ -5,7 +5,7 @@ metadata:
   namespace: siad-moodlececl-dev-01
 data:
   dataroot: /mnt/NFS/moodledata
-  wwwroot: https://moodleame.uqam.ca
+  wwwroot: https://moodle-cecl.dev.uqam.ca
   memsession: memcached-ses01.siad-moodlececl-dev-01:11211
   localcachedir: /tmp/local
   dbtype: mariadb
