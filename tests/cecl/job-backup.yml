@@ -2,7 +2,7 @@ apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
   name: ame-backup-job
-  namespace: siad-moodleame-prod-01
+  namespace: siad-moodlececl-dev-01
 spec:
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -14,7 +14,7 @@ spec:
           volumes:
           - name: moodle01-storage
             persistentVolumeClaim:
-             claimName: pvc-siad-moodleame-prod-01-vol01
+             claimName: pvc-siad-moodlececl-dev-01-vol01
           containers:
           - image: mysqlboy/docker-mydumper
             name: dumper

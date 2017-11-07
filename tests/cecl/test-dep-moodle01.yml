@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: moodle01-deployment
-  namespace: siad-moodleame-prod-01
+  namespace: siad-moodlececl-dev-01
 spec:
   replicas: 1
   template:
@@ -77,4 +77,4 @@ spec:
       #    medium: Memory
       - name: moodle01-storage
         persistentVolumeClaim:
-         claimName: pvc-siad-moodleame-prod-01-vol01
+         claimName: pvc-siad-moodlececl-dev-01-vol01

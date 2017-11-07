@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: web-service-moodle01
-  namespace: siad-moodleame-prod-01
+  namespace: siad-moodlececl-dev-01
 spec:
   selector:
     app: ame01-prod
