@@ -16,7 +16,7 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodlececl-dev-01-vol01
           containers:
-          - image: nmolleruq/mdlcron:v1.24Saml
+          - image: nmolleruq/mdlhb-cecl-cron:v1.4
             name: moodle-cron01
             resources:
               limits:
@@ -54,30 +54,30 @@ spec:
             - name: MDL_DBHOST
               valueFrom:
                 secretKeyRef:
-                  name: secrets-moodle01-prod
+                  name: secrets-moodle01-dev
                   key: db_host
             - name: MDL_DBNAME
               valueFrom:
                 secretKeyRef:
-                  name: secrets-moodle01-prod
+                  name: secrets-moodle01-dev
                   key: db_name
             - name: MDL_DBUSER
               valueFrom:
                 secretKeyRef:
-                  name: secrets-moodle01-prod
+                  name: secrets-moodle01-dev
                   key: db_username
             - name: MDL_DBPASS
               valueFrom:
                 secretKeyRef:
-                  name: secrets-moodle01-prod
+                  name: secrets-moodle01-dev
                   key: db_password
             volumeMounts:
             #- mountPath: /SANcache
             #  name: moodle-cache01
-            - mountPath: /var/www/moodledata
+            - mountPath: /mnt/NFS
               name: moodle01-storage
-            args:
-            - /bin/sh
-            - -c
-            - /tmp/generate-cron.sh 2> /dev/null
+            #args:
+            #- /bin/sh
+            #- -c
+            #- /tmp/generate-cron.sh 2> /dev/null
           restartPolicy: Never
