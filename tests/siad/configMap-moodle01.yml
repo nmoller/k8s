@@ -5,7 +5,7 @@ metadata:
   namespace: siad-moodle-dev-01
 data:
   dataroot: /mnt/NFSweb/moodledata/coursv3
-  wwwroot: https://moodle-k8s.dev.uqam.ca
+  wwwroot: https://moodle-comp.dev.uqam.ca
   memsession: memcached-ses01-moodle01-dev.siad-moodle-dev-01:11211
   localcachedir: /tmp/local
   dbtype: mysqli
