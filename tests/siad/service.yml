@@ -5,11 +5,11 @@ metadata:
   namespace: siad-moodle-dev-01
 spec:
   selector:
-    app: moodle01-dev
+    app: moodlecomp-dev
   ports:
     - port: 80
       protocol: TCP
       targetPort: 80
-      nodePort: 30043
+      nodePort: 30072
       name: http
   type: NodePort  
