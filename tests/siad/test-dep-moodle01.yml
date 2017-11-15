@@ -8,18 +8,18 @@ spec:
   template:
     metadata:
       labels:
-        app: moodle01-dev
+        app: moodlecomp-dev
     spec:
       containers:
-      - image: nmolleruq/uqamstable:3.0.9-01-fileforrestore-05
+      - image: nmolleruq/uqamstable:3.1.8-1
         name: moodle-web01
         resources:
             limits:
               cpu: 1
-              memory: 600Mi
+              memory: 900Mi
             requests:
               cpu: 50m
-              memory: 100Mi
+              memory: 60Mi
         env:
         - name: MDL_DBTYPE
           valueFrom:
@@ -67,12 +67,12 @@ spec:
               name: secrets-moodle01-dev
               key: db_password
         volumeMounts:
-        - mountPath: /var/www/moodledata
+        - mountPath: /opt/moodledata
           name: moodle01-storage
         - mountPath: /mnt/NFSweb
           name: moodle01-nfsweb
-        #- mountPath: /mnt/NFSinscription
-        #  name: moodle01-nfsinscription
+        - mountPath: /mnt/NFSinscription
+          name: moodle01-nfsinscription
       volumes:
       - name: moodle01-storage
         persistentVolumeClaim:
@@ -80,6 +80,6 @@ spec:
       - name: moodle01-nfsweb
         persistentVolumeClaim:
           claimName: pvc-siad-moodle-dev-01-nfsweb
-      #- name: moodle01-nfsinscription
-      #  persistentVolumeClaim:
-      #    claimName: pvc-siad-moodle-dev-01-nfsinscription
+      - name: moodle01-nfsinscription
+        persistentVolumeClaim:
+          claimName: pvc-siad-moodle-dev-01-nfsinscription
