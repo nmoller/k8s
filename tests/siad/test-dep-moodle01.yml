@@ -11,7 +11,7 @@ spec:
         app: moodlecomp-dev
     spec:
       containers:
-      - image: nmolleruq/uqamstable:3.1.8-1
+      - image: nmolleruq/uqamstable:3.1.8-2
         name: moodle-web01
         resources:
             limits:
