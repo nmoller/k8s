@@ -4,6 +4,8 @@ metadata:
   name: moodle-cron01
   namespace: siad-moodle-dev-01
 spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   schedule: "*/10 * * * *"
   jobTemplate:
     spec:
