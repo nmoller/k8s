@@ -9,3 +9,4 @@ data:
   memsession: memcached-ses01-moodle01-dev.siad-moodle-dev-01:11211
   localcachedir: /tmp/local
   dbtype: mysqli
+  new_relic_app_name: Moodle-competences-1
