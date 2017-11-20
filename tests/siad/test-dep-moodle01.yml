@@ -11,7 +11,7 @@ spec:
         app: moodlecomp-dev
     spec:
       containers:
-      - image: nmolleruq/uqamstable:3.1.8-2
+      - image: nmolleruq/uqamstable:3.1.8-19
         name: moodle-web01
         resources:
             limits:
@@ -46,6 +46,11 @@ spec:
             configMapKeyRef:
               name: moodle01-config
               key: wwwroot
+        - name: NEW_RELIC_APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: moodle01-config
+              key: new_relic_app_name
         - name: MDL_DBHOST
           valueFrom:
             secretKeyRef:
@@ -66,12 +71,17 @@ spec:
             secretKeyRef:
               name: secrets-moodle01-dev
               key: db_password
+        - name: NR_INSTALL_KEY
+          valueFrom:
+            secretKeyRef:
+              name: secrets-moodle01-dev
+              key: new_relic_key
         volumeMounts:
         - mountPath: /opt/moodledata
           name: moodle01-storage
         - mountPath: /mnt/NFSweb
           name: moodle01-nfsweb
-        - mountPath: /mnt/NFSinscription
+        - mountPath: /mnt/NFSinscriptions
           name: moodle01-nfsinscription
       volumes:
       - name: moodle01-storage
