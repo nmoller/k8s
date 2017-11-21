@@ -10,3 +10,6 @@ data:
   localcachedir: /tmp/local
   dbtype: mysqli
   new_relic_app_name: Moodle-competences-1
+  ora_user: webct
+  ora_home: /usr/local/oracle/lib/oracle/12.2/client64/lib
+  perl5lib: /home/moodle/inscriptions

@@ -15,7 +15,7 @@ spec:
     persistentVolumeClaim:
       claimName: pvc-siad-moodle-dev-01-nfsinscription
   containers:
-  - image: nmolleruq/insc
+  - image: nmolleruq/insc:1.1
     name: dumper
     resources:
       limits:
@@ -70,6 +70,26 @@ spec:
         secretKeyRef:
           name: secrets-moodle01-dev
           key: db_password
+    - name: USAGER
+      valueFrom:
+        secretKeyRef:
+          name: moodle01-config
+          key: ora_user
+    - name: PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: secrets-moodle01-dev
+          key: ora_password
+    - name: ORACLE_HOME
+      valueFrom:
+        secretKeyRef:
+          name: moodle01-config
+          key: ora_home
+    - name: PERL5LIB
+      valueFrom:
+        secretKeyRef:
+          name: moodle01-config
+          key: perl5lib
     volumeMounts:
     - mountPath: /mnt/NFSlog
       name: moodle01-storage
