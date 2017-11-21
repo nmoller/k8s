@@ -72,7 +72,7 @@ spec:
           key: db_password
     - name: USAGER
       valueFrom:
-        secretKeyRef:
+        configMapKeyRef:
           name: moodle01-config
           key: ora_user
     - name: PASSWORD
@@ -82,12 +82,12 @@ spec:
           key: ora_password
     - name: ORACLE_HOME
       valueFrom:
-        secretKeyRef:
+        configMapKeyRef:
           name: moodle01-config
           key: ora_home
     - name: PERL5LIB
       valueFrom:
-        secretKeyRef:
+        configMapKeyRef:
           name: moodle01-config
           key: perl5lib
     volumeMounts:
