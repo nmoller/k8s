@@ -15,8 +15,8 @@ spec:
     persistentVolumeClaim:
       claimName: pvc-siad-moodle-dev-01-nfsinscription
   containers:
-  - image: nmolleruq/insc:1.1
-    name: dumper
+  - image: nmolleruq/insc:1.2
+    name: inscription1
     resources:
       limits:
         cpu: 300m
