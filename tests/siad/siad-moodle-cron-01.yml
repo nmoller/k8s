@@ -21,7 +21,7 @@ spec:
           - name: moodle01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-7
+          - image: nmolleruq/mdlcron:3.1.8-8
             name: cron01-mdl
             resources:
               limits:
@@ -83,7 +83,7 @@ spec:
               name: moodle01-nfsweb
             - mountPath: /mnt/NFSinscription
               name: moodle01-nfsinscription
-            
+          
           restartPolicy: Never
 
 ---
@@ -110,7 +110,7 @@ spec:
           - name: moodle01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-7
+          - image: nmolleruq/mdlcron:3.1.8-8
             name: cron02-newins
             resources:
               limits:
@@ -173,8 +173,10 @@ spec:
             - mountPath: /mnt/NFSinscription
               name: moodle01-nfsinscription
             args:
-            - /var/www/html/local/uqregistration/admin/cli/local_uqregistration_cron.php >> /mnt/NFSinscriptions/moodle_cron/uqregis.log
-            
+            - /var/www/html/local/uqregistration/admin/cli/local_uqregistration_cron.php 
+            - \>\>
+            - /mnt/NFSinscriptions/moodle_cron/uqregis.log
+          
           restartPolicy: Never
 
 ---
@@ -201,7 +203,7 @@ spec:
           - name: moodle01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-7
+          - image: nmolleruq/mdlcron:3.1.8-8
             name: cron03-insall
             resources:
               limits:
@@ -264,8 +266,11 @@ spec:
             - mountPath: /mnt/NFSinscription
               name: moodle01-nfsinscription
             args:
-            - /var/www/html/local/uqregistration/admin/cli/local_uqregistration_cron.php --all >> /mnt/NFSinscriptions/moodle_cron/uqregis.log
-            
+            - /var/www/html/local/uqregistration/admin/cli/local_uqregistration_cron.php
+            - --all
+            - \>\>
+            - /mnt/NFSinscriptions/moodle_cron/uqregis.log
+          
           restartPolicy: Never
 
 ---
@@ -292,7 +297,7 @@ spec:
           - name: moodle01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-7
+          - image: nmolleruq/mdlcron:3.1.8-8
             name: cron04-imp
             resources:
               limits:
@@ -355,8 +360,8 @@ spec:
             - mountPath: /mnt/NFSinscription
               name: moodle01-nfsinscription
             args:
-            - /var/www/html/local/uqregistration/admin/cli/local_uqregistration_import_cours.php > /dev/null 2>&1
-            
+            - /var/www/html/local/uqregistration/admin/cli/local_uqregistration_import_cours.php
+          
           restartPolicy: Never
 
 ---
@@ -383,7 +388,7 @@ spec:
           - name: moodle01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-7
+          - image: nmolleruq/mdlcron:3.1.8-8
             name: cron05-trans
             resources:
               limits:
@@ -446,9 +451,10 @@ spec:
             - mountPath: /mnt/NFSinscription
               name: moodle01-nfsinscription
             args:
-            - /var/www/html/local/uqenroll/admin/cli/insert_transactions_du_jour.php > /dev/null 2>&1
+            - /var/www/html/local/uqenroll/admin/cli/insert_transactions_du_jour.php
             
           restartPolicy: Never
+
 ---
 apiVersion: batch/v2alpha1
 kind: CronJob
@@ -473,7 +479,7 @@ spec:
           - name: moodle01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-7
+          - image: nmolleruq/mdlcron:3.1.8-8
             name: cron06-mailnd
             resources:
               limits:
@@ -536,6 +542,8 @@ spec:
             - mountPath: /mnt/NFSinscription
               name: moodle01-nfsinscription
             args:
-            - /var/www/html/local/uqamlib/admin/cli/local_uqamlib_courriel_nd.php >> /mnt/NFSinscriptions/moodle_cron/emailnd.log
+            - /var/www/html/local/uqamlib/admin/cli/local_uqamlib_courriel_nd.php
+            - \>\>
+            - /mnt/NFSinscriptions/moodle_cron/emailnd.log
             
           restartPolicy: Never
