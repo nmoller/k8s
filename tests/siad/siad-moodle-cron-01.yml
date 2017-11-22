@@ -1,7 +1,7 @@
 apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
-  name: moodle-cron01
+  name: cron01-mdl
   namespace: siad-moodle-dev-01
 spec:
   successfulJobsHistoryLimit: 1
@@ -22,7 +22,7 @@ spec:
         
           containers:
           - image: nmolleruq/mdlcron:3.1.8-2
-            name: moodle-cron01
+            name: cron01-mdl
             resources:
               limits:
                 cpu: 200m
@@ -83,5 +83,469 @@ spec:
               name: moodle01-nfsweb
             - mountPath: /mnt/NFSinscription
               name: moodle01-nfsinscription
+            
+          restartPolicy: Never
+
+---
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: cron02-newins
+  namespace: siad-moodle-dev-01
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: "0 7,10,13,16,19,22 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: moodle01-storage
+            persistentVolumeClaim:
+             claimName: pvc-siad-moodle-dev-01-vol01
+          - name: moodle01-nfsweb
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsweb
+          - name: moodle01-nfsinscription
+        
+          containers:
+          - image: nmolleruq/mdlcron:3.1.8-2
+            name: cron02-newins
+            resources:
+              limits:
+                cpu: 200m
+                memory: 250Mi
+              requests:
+                cpu: 30m
+                memory: 30Mi
+            env:
+            - name: MDL_DBTYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dbtype
+            - name: MDL_DATAROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dataroot
+            - name: MDL_MEMSESSION
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: memsession
+            - name: MDL_LOCALCACHEDIR
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: localcachedir
+            - name: MDL_WWWROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: wwwroot
+            - name: MDL_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_host
+            - name: MDL_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_name
+            - name: MDL_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_username
+            - name: MDL_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_password
+            volumeMounts:
+            - mountPath: /opt/moodledata
+              name: moodle01-storage
+            - mountPath: /mnt/NFSweb
+              name: moodle01-nfsweb
+            - mountPath: /mnt/NFSinscription
+              name: moodle01-nfsinscription
+            args:
+            - /bin/sh
+            - -c
+            - php /var/www/html/local/uqregistration/admin/cli/local_uqregistration_cron.php >> /mnt/NFSinscriptions/moodle_cron/uqregis.log
+            
+          restartPolicy: Never
+
+---
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: cron03-insall
+  namespace: siad-moodle-dev-01
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: "40 23 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: moodle01-storage
+            persistentVolumeClaim:
+             claimName: pvc-siad-moodle-dev-01-vol01
+          - name: moodle01-nfsweb
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsweb
+          - name: moodle01-nfsinscription
+        
+          containers:
+          - image: nmolleruq/mdlcron:3.1.8-2
+            name: cron03-insall
+            resources:
+              limits:
+                cpu: 200m
+                memory: 250Mi
+              requests:
+                cpu: 30m
+                memory: 30Mi
+            env:
+            - name: MDL_DBTYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dbtype
+            - name: MDL_DATAROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dataroot
+            - name: MDL_MEMSESSION
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: memsession
+            - name: MDL_LOCALCACHEDIR
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: localcachedir
+            - name: MDL_WWWROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: wwwroot
+            - name: MDL_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_host
+            - name: MDL_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_name
+            - name: MDL_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_username
+            - name: MDL_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_password
+            volumeMounts:
+            - mountPath: /opt/moodledata
+              name: moodle01-storage
+            - mountPath: /mnt/NFSweb
+              name: moodle01-nfsweb
+            - mountPath: /mnt/NFSinscription
+              name: moodle01-nfsinscription
+            args:
+            - /bin/sh
+            - -c
+            - php /var/www/html/local/uqregistration/admin/cli/local_uqregistration_cron.php --all >> /mnt/NFSinscriptions/moodle_cron/uqregis.log
+            
+          restartPolicy: Never
+
+---
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: cron04-imp
+  namespace: siad-moodle-dev-01
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: "40 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: moodle01-storage
+            persistentVolumeClaim:
+             claimName: pvc-siad-moodle-dev-01-vol01
+          - name: moodle01-nfsweb
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsweb
+          - name: moodle01-nfsinscription
+        
+          containers:
+          - image: nmolleruq/mdlcron:3.1.8-2
+            name: cron04-imp
+            resources:
+              limits:
+                cpu: 200m
+                memory: 250Mi
+              requests:
+                cpu: 30m
+                memory: 30Mi
+            env:
+            - name: MDL_DBTYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dbtype
+            - name: MDL_DATAROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dataroot
+            - name: MDL_MEMSESSION
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: memsession
+            - name: MDL_LOCALCACHEDIR
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: localcachedir
+            - name: MDL_WWWROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: wwwroot
+            - name: MDL_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_host
+            - name: MDL_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_name
+            - name: MDL_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_username
+            - name: MDL_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_password
+            volumeMounts:
+            - mountPath: /opt/moodledata
+              name: moodle01-storage
+            - mountPath: /mnt/NFSweb
+              name: moodle01-nfsweb
+            - mountPath: /mnt/NFSinscription
+              name: moodle01-nfsinscription
+            args:
+            - /bin/sh
+            - -c
+            - php /var/www/html/local/uqregistration/admin/cli/local_uqregistration_import_cours.php > /dev/null 2>&1
+            
+          restartPolicy: Never
+
+---
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: cron05-trans
+  namespace: siad-moodle-dev-01
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: "30 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: moodle01-storage
+            persistentVolumeClaim:
+             claimName: pvc-siad-moodle-dev-01-vol01
+          - name: moodle01-nfsweb
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsweb
+          - name: moodle01-nfsinscription
+        
+          containers:
+          - image: nmolleruq/mdlcron:3.1.8-2
+            name: cron05-trans
+            resources:
+              limits:
+                cpu: 200m
+                memory: 250Mi
+              requests:
+                cpu: 30m
+                memory: 30Mi
+            env:
+            - name: MDL_DBTYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dbtype
+            - name: MDL_DATAROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dataroot
+            - name: MDL_MEMSESSION
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: memsession
+            - name: MDL_LOCALCACHEDIR
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: localcachedir
+            - name: MDL_WWWROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: wwwroot
+            - name: MDL_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_host
+            - name: MDL_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_name
+            - name: MDL_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_username
+            - name: MDL_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_password
+            volumeMounts:
+            - mountPath: /opt/moodledata
+              name: moodle01-storage
+            - mountPath: /mnt/NFSweb
+              name: moodle01-nfsweb
+            - mountPath: /mnt/NFSinscription
+              name: moodle01-nfsinscription
+            args:
+            - /bin/sh
+            - -c
+            - php /var/www/html/local/uqenroll/admin/cli/insert_transactions_du_jour.php > /dev/null 2>&1
+            
+          restartPolicy: Never
+---
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: cron06-mailnd
+  namespace: siad-moodle-dev-01
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: "22 9 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: moodle01-storage
+            persistentVolumeClaim:
+             claimName: pvc-siad-moodle-dev-01-vol01
+          - name: moodle01-nfsweb
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsweb
+          - name: moodle01-nfsinscription
+        
+          containers:
+          - image: nmolleruq/mdlcron:3.1.8-2
+            name: cron06-mailnd
+            resources:
+              limits:
+                cpu: 200m
+                memory: 250Mi
+              requests:
+                cpu: 30m
+                memory: 30Mi
+            env:
+            - name: MDL_DBTYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dbtype
+            - name: MDL_DATAROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: dataroot
+            - name: MDL_MEMSESSION
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: memsession
+            - name: MDL_LOCALCACHEDIR
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: localcachedir
+            - name: MDL_WWWROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: wwwroot
+            - name: MDL_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_host
+            - name: MDL_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_name
+            - name: MDL_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_username
+            - name: MDL_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-moodle01-dev
+                  key: db_password
+            volumeMounts:
+            - mountPath: /opt/moodledata
+              name: moodle01-storage
+            - mountPath: /mnt/NFSweb
+              name: moodle01-nfsweb
+            - mountPath: /mnt/NFSinscription
+              name: moodle01-nfsinscription
+            args:
+            - /bin/sh
+            - -c
+            - php /var/www/html/local/uqamlib/admin/cli/local_uqamlib_courriel_nd.php >> /mnt/NFSinscriptions/moodle_cron/emailnd.log
             
           restartPolicy: Never
