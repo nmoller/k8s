@@ -51,6 +51,11 @@ spec:
             configMapKeyRef:
               name: moodle01-config
               key: new_relic_app_name
+        - name: LDAPTLS_REQCERT
+          valueFrom:
+            configMapKeyRef:
+              name: moodle01-config
+              key: ldaptls_reqcert
         - name: MDL_DBHOST
           valueFrom:
             secretKeyRef:

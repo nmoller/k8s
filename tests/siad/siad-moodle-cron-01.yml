@@ -58,6 +58,11 @@ spec:
                 configMapKeyRef:
                   name: moodle01-config
                   key: wwwroot
+            - name: LDAPTLS_REQCERT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: ldaptls_reqcert
             - name: MDL_DBHOST
               valueFrom:
                 secretKeyRef:
@@ -149,6 +154,11 @@ spec:
                 configMapKeyRef:
                   name: moodle01-config
                   key: wwwroot
+            - name: LDAPTLS_REQCERT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: ldaptls_reqcert
             - name: MDL_DBHOST
               valueFrom:
                 secretKeyRef:
@@ -242,6 +252,11 @@ spec:
                 configMapKeyRef:
                   name: moodle01-config
                   key: wwwroot
+            - name: LDAPTLS_REQCERT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: ldaptls_reqcert
             - name: MDL_DBHOST
               valueFrom:
                 secretKeyRef:
@@ -336,6 +351,11 @@ spec:
                 configMapKeyRef:
                   name: moodle01-config
                   key: wwwroot
+            - name: LDAPTLS_REQCERT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: ldaptls_reqcert
             - name: MDL_DBHOST
               valueFrom:
                 secretKeyRef:
@@ -429,6 +449,11 @@ spec:
                 configMapKeyRef:
                   name: moodle01-config
                   key: wwwroot
+            - name: LDAPTLS_REQCERT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: ldaptls_reqcert
             - name: MDL_DBHOST
               valueFrom:
                 secretKeyRef:
@@ -522,6 +547,11 @@ spec:
                 configMapKeyRef:
                   name: moodle01-config
                   key: wwwroot
+            - name: LDAPTLS_REQCERT
+              valueFrom:
+                configMapKeyRef:
+                  name: moodle01-config
+                  key: ldaptls_reqcert
             - name: MDL_DBHOST
               valueFrom:
                 secretKeyRef:
