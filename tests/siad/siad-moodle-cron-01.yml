@@ -14,14 +14,16 @@ spec:
           volumes:
           - name: moodle01-storage
             persistentVolumeClaim:
-             claimName: pvc-siad-moodle-dev-01-vol01
+              claimName: pvc-siad-moodle-dev-01-vol01
           - name: moodle01-nfsweb
             persistentVolumeClaim:
               claimName: pvc-siad-moodle-dev-01-nfsweb
           - name: moodle01-nfsinscription
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-8
+          - image: nmolleruq/mdlcron:3.1.8-9
             name: cron01-mdl
             resources:
               limits:
@@ -108,9 +110,11 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodle-dev-01-nfsweb
           - name: moodle01-nfsinscription
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-8
+          - image: nmolleruq/mdlcron:3.1.8-9
             name: cron02-newins
             resources:
               limits:
@@ -173,9 +177,7 @@ spec:
             - mountPath: /mnt/NFSinscription
               name: moodle01-nfsinscription
             args:
-            - /var/www/html/local/uqregistration/admin/cli/local_uqregistration_cron.php 
-            - \>\>
-            - /mnt/NFSinscriptions/moodle_cron/uqregis.log
+            - /var/www/html/local/uqregistration/admin/cli/local_uqregistration_cron.php
           
           restartPolicy: Never
 
@@ -201,9 +203,11 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodle-dev-01-nfsweb
           - name: moodle01-nfsinscription
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-8
+          - image: nmolleruq/mdlcron:3.1.8-9
             name: cron03-insall
             resources:
               limits:
@@ -268,8 +272,6 @@ spec:
             args:
             - /var/www/html/local/uqregistration/admin/cli/local_uqregistration_cron.php
             - --all
-            - \>\>
-            - /mnt/NFSinscriptions/moodle_cron/uqregis.log
           
           restartPolicy: Never
 
@@ -295,9 +297,11 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodle-dev-01-nfsweb
           - name: moodle01-nfsinscription
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-8
+          - image: nmolleruq/mdlcron:3.1.8-9
             name: cron04-imp
             resources:
               limits:
@@ -386,9 +390,11 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodle-dev-01-nfsweb
           - name: moodle01-nfsinscription
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-8
+          - image: nmolleruq/mdlcron:3.1.8-9
             name: cron05-trans
             resources:
               limits:
@@ -464,7 +470,7 @@ metadata:
 spec:
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
-  schedule: "22 14 * * *"
+  schedule: "00 22 * * *"
   jobTemplate:
     spec:
       template:
@@ -477,9 +483,11 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodle-dev-01-nfsweb
           - name: moodle01-nfsinscription
+            persistentVolumeClaim:
+              claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-8
+          - image: nmolleruq/mdlcron:3.1.8-9
             name: cron06-mailnd
             resources:
               limits:
@@ -543,7 +551,5 @@ spec:
               name: moodle01-nfsinscription
             args:
             - /var/www/html/local/uqamlib/admin/cli/local_uqamlib_courriel_nd.php
-            - \>\>
-            - /mnt/NFSinscriptions/moodle_cron/emailnd.log
             
           restartPolicy: Never
