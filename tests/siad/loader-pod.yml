@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: loader-pod
+  namespace: siad-moodle-dev-01
+spec:
+  volumes:
+  - name: moodle01-storage
+    persistentVolumeClaim:
+     claimName: pvc-siad-moodle-dev-01-vol01
+  containers:
+  - image: mysqlboy/docker-mydumper
+    name: dumper
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 600Mi
+      requests:
+        cpu: 100m
+        memory: 50Mi
+    env:
+    - name: MDL_DBTYPE
+      valueFrom:
+        configMapKeyRef:
+          name: moodle01-config
+          key: dbtype
+    - name: MDL_DATAROOT
+      valueFrom:
+        configMapKeyRef:
+          name: moodle01-config
+          key: dataroot
+    - name: MDL_MEMSESSION
+      valueFrom:
+        configMapKeyRef:
+          name: moodle01-config
+          key: memsession
+    - name: MDL_LOCALCACHEDIR
+      valueFrom:
+        configMapKeyRef:
+          name: moodle01-config
+          key: localcachedir
+    - name: MDL_WWWROOT
+      valueFrom:
+        configMapKeyRef:
+          name: moodle01-config
+          key: wwwroot
+    - name: MDL_DBHOST
+      valueFrom:
+        secretKeyRef:
+          name: secrets-moodle01-dev
+          key: db_host
+    - name: MDL_DBNAME
+      valueFrom:
+        secretKeyRef:
+          name: secrets-moodle01-dev
+          key: db_name
+    - name: MDL_DBUSER
+      valueFrom:
+        secretKeyRef:
+          name: secrets-moodle01-dev
+          key: db_username
+    - name: MDL_DBPASS
+      valueFrom:
+        secretKeyRef:
+          name: secrets-moodle01-dev
+          key: db_password
+    volumeMounts:
+    - mountPath: /var/www/moodledata
+      name: moodle01-storage
+    args:
+    - /bin/sh
+    - -c
+    - myloader --user=${MDL_DBUSER} --password=${MDL_DBPASS} --host=${MDL_DBHOST} --directory="/var/www/moodledata/backups/2017-09-08_20:42:51" --overwrite-tables --threads=2 --compress-protocol -v 3
+    # - "trap : TERM INT; sleep infinity & wait"
+  restartPolicy: Never
