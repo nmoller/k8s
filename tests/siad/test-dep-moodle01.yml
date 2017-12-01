@@ -11,7 +11,7 @@ spec:
         app: moodlecomp-dev
     spec:
       containers:
-      - image: nmolleruq/uqamstable:3.1.8-23
+      - image: nmolleruq/uqamstable:3.1.8-26
         name: moodle-web01
         resources:
             limits:
@@ -56,6 +56,11 @@ spec:
             configMapKeyRef:
               name: moodle01-config
               key: ldaptls_reqcert
+        - name: CLAMD_ADDR
+          valueFrom:
+            configMapKeyRef:
+              name: moodle01-config
+              key: clamd_addr
         - name: MDL_DBHOST
           valueFrom:
             secretKeyRef:
