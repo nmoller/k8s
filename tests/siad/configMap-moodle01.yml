@@ -14,3 +14,4 @@ data:
   ora_home: /usr/local/oracle/lib/oracle/12.2/client64/lib
   perl5lib: /home/moodle/inscriptions
   ldaptls_reqcert: never
+  clamd_addr: clamd-moodle01-dev.siad-moodle-dev-01
