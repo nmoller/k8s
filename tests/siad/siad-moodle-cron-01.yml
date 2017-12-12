@@ -23,7 +23,7 @@ spec:
               claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-29
+          - image: nmolleruq/mdlcron:3.1.8-20
             name: cron01-mdl
             resources:
               limits:
@@ -119,7 +119,7 @@ spec:
               claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-29
+          - image: nmolleruq/mdlcron:3.1.8-20
             name: cron02-newins
             resources:
               limits:
@@ -217,7 +217,7 @@ spec:
               claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-29
+          - image: nmolleruq/mdlcron:3.1.8-20
             name: cron03-insall
             resources:
               limits:
@@ -316,7 +316,7 @@ spec:
               claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-29
+          - image: nmolleruq/mdlcron:3.1.8-20
             name: cron04-imp
             resources:
               limits:
@@ -414,7 +414,7 @@ spec:
               claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-29
+          - image: nmolleruq/mdlcron:3.1.8-20
             name: cron05-trans
             resources:
               limits:
@@ -512,7 +512,7 @@ spec:
               claimName: pvc-siad-moodle-dev-01-nfsinscription
         
           containers:
-          - image: nmolleruq/mdlcron:3.1.8-29
+          - image: nmolleruq/mdlcron:3.1.8-20
             name: cron06-mailnd
             resources:
               limits:
