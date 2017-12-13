@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: clamd01
-        image: nmolleruq/clamav:0.90
+        image: nmolleruq/clamav:0.95
         resources:
             limits:
               cpu: 500m
@@ -22,6 +22,13 @@ spec:
               memory: 100Mi
         ports:
         - containerPort: 3310
+        volumeMounts:
+          - mountPath: /opt/moodledata
+            name: moodle01-storage
+      volumes:
+      - name: moodle01-storage
+        persistentVolumeClaim:
+         claimName: pvc-siad-moodle-dev-01-vol01
 
 ---
 apiVersion: v1
