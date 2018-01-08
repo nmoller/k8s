@@ -16,7 +16,7 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodlececl-dev-01-vol01
           containers:
-          - image: nmolleruq/mdlhb-cecl-cron:v1.4
+          - image: nmolleruq/mdlhb-cecl-cron:v1.5
             name: moodle-cron01
             resources:
               limits:
@@ -80,4 +80,4 @@ spec:
             #- /bin/sh
             #- -c
             #- /tmp/generate-cron.sh 2> /dev/null
-          restartPolicy: Never
+          restartPolicy: OnFailure
