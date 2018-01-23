@@ -4,6 +4,11 @@
 # 
 
 namespace: siad-moodlececl-prod-01
+pvc: pvc-siad-moodlececl-dev-01-vol01
+port: 30087
+appname: cecl-prod
+dbtype: mysqli
+wwwroot: https://moodle-cecl.uqam.ca
 
 replicaCount: 1
 image:

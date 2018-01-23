@@ -14,7 +14,7 @@ spec:
           volumes:
           - name: moodle01-storage
             persistentVolumeClaim:
-              claimName: pvc-siad-moodlececl-dev-01-vol01
+              claimName: {{ .Values.pvc }}
           containers:
           - image: nmolleruq/mdlhb-cecl-cron:v1.5
             name: moodle-cron01

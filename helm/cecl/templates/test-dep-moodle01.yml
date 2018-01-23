@@ -8,7 +8,7 @@ spec:
   template:
     metadata:
       labels:
-        app: ame01-prod
+        app: {{ .Values.appname }}
     spec:
       containers:
       - image: nmolleruq/mdlhb-cecl:v1.5
@@ -77,4 +77,4 @@ spec:
       #    medium: Memory
       - name: moodle01-storage
         persistentVolumeClaim:
-         claimName: pvc-siad-moodlececl-dev-01-vol01
+         claimName: {{ .Values.pvc }}
