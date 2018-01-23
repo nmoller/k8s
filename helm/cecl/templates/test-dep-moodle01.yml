@@ -4,22 +4,23 @@ metadata:
   name: moodle01-deployment
   namespace: {{ .Values.namespace | default "siad-moodle-dev-01" }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
         app: {{ .Values.appname }}
     spec:
       containers:
-      - image: nmolleruq/mdlhb-cecl:v1.5
+      - image: {{.Values.image.repository }}/{{.Values.image.name }}:{{.Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: moodle-web01
         resources:
             limits:
-              cpu: 1
-              memory: 1400Mi
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
             requests:
-              cpu: 50m
-              memory: 100Mi
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
         env:
         - name: MDL_DBTYPE
           valueFrom:

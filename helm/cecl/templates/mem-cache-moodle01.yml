@@ -15,6 +15,13 @@ spec:
         image: memcached:1.4.37
         command: ["memcached"]
         args: ["-m", "145", "-c", "800"]
+        resources:
+          limits:
+            cpu: {{ .Values.resources.memapp.limits.cpu }}
+            memory: {{ .Values.resources.memapp.limits.memory }}
+          requests:
+            cpu: {{ .Values.resources.memapp.requests.cpu }}
+            memory: {{ .Values.resources.memapp.requests.memory }}
         ports:
         - containerPort: 11211
         
@@ -36,6 +43,13 @@ spec:
         image: memcached:1.4.37
         command: ["memcached"]
         args: ["-m", "145", "-c", "800"]
+        resources:
+          limits:
+            cpu: {{ .Values.resources.memses.limits.cpu }}
+            memory: {{ .Values.resources.memses.limits.memory }}
+          requests:
+            cpu: {{ .Values.resources.memses.requests.cpu }}
+            memory: {{ .Values.resources.memses.requests.memory }}
         ports:
         - containerPort: 11211
 ---

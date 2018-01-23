@@ -1,10 +1,10 @@
 # Default values for cecl.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-# 
+
 
 namespace: siad-moodlececl-prod-01
-pvc: pvc-siad-moodlececl-dev-01-vol01
+pvc: pvc-siad-moodlececl-prod-01-vol01
 port: 30087
 appname: cecl-prod
 dbtype: mysqli
@@ -12,8 +12,11 @@ wwwroot: https://moodle-cecl.uqam.ca
 
 replicaCount: 1
 image:
-  repository: nginx
-  tag: stable
+  repository: nmolleruq
+  name: mdlhb-cecl
+  cronname: mdlhb-cecl-cron
+  tag: v1.5
+  crontag: v1.5
   pullPolicy: IfNotPresent
   
 service:
@@ -23,13 +26,35 @@ service:
   internalPort: 80
 
 resources:
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # S'assurer de ne pas dépasser le quota du ns
   limits:
     cpu: 100m
     memory: 128Mi
   requests:
-    cpu: 100m
+    cpu: 50m
     memory: 128Mi
+  cron:    
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 50Mi
+  # Resources pour memcached applicative
+  memapp:    
+    limits:
+      cpu: 100m
+      # Dans les paramètres memcached le -m est le max de RAM
+      # cette valeur doit être juste une petite peu grande
+      memory: 150Mi
+    requests:
+      cpu: 5m
+      memory: 10Mi
+  # Ressources pour memcached de sessions
+  memses:    
+    limits:
+      cpu: 100m
+      memory: 150Mi
+    requests:
+      cpu: 5m
+      memory: 10Mi

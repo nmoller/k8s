@@ -16,15 +16,16 @@ spec:
             persistentVolumeClaim:
               claimName: {{ .Values.pvc }}
           containers:
-          - image: nmolleruq/mdlhb-cecl-cron:v1.5
+          - image: {{.Values.image.repository }}/{{.Values.image.cronname }}:{{.Values.image.crontag }}
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
             name: moodle-cron01
             resources:
               limits:
-                cpu: 400m
-                memory: 300Mi
+                cpu: {{ .Values.resources.cron.limits.cpu }}
+                memory: {{ .Values.resources.cron.limits.memory }}
               requests:
-                cpu: 100m
-                memory: 100Mi
+                cpu: {{ .Values.resources.cron.requests.cpu }}
+                memory: {{ .Values.resources.cron.requests.memory }}
             env:
             - name: MDL_DBTYPE
               valueFrom:
