@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: moodle01-deployment
-  namespace: siad-moodlececl-dev-01
+  namespace: {{ .Values.namespace | default "siad-moodle-dev-01" }}
 spec:
   replicas: 1
   template:

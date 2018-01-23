@@ -2,7 +2,7 @@ apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
   name: ame-backup-job
-  namespace: siad-moodlececl-dev-01
+  namespace: {{ .Values.namespace | default "siad-moodle-dev-01" }}
 spec:
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1

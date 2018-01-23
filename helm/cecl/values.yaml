@@ -1,6 +1,10 @@
 # Default values for cecl.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+# 
+
+namespace: siad-moodlececl-prod-01
+
 replicaCount: 1
 image:
   repository: nginx
