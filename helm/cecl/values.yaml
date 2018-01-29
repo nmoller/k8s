@@ -3,12 +3,27 @@
 # Declare variables to be passed into your templates.
 
 
-namespace: siad-moodlececl-prod-01
-pvc: pvc-siad-moodlececl-prod-01-vol01
-port: 30087
-appname: cecl-prod
-dbtype: mysqli
-wwwroot: https://moodle-cecl.uqam.ca
+#namespace: siad-moodlececl-prod-01
+#pvc: pvc-siad-moodlececl-prod-01-vol01
+#port: 30087
+#appname: cecl-prod
+#dbtype: mysqli
+#wwwroot: https://moodle-cecl.uqam.ca
+#
+
+# Pendent les test on veut valider ce qui se passe sur chaque
+# worker (specificWorker: true) 
+# (ouverture de ports, disques....) pour éviter des mauvaises surprises
+# Post-test la valeur sera toujours à false.
+specificWorker: false
+worker: chaland
+
+namespace: siad-moodlececl-dev-01
+pvc: pvc-siad-moodlececl-dev-01-vol01
+port: 30070
+appname: ame01-prod
+dbtype: mariadb
+wwwroot: https://moodle-cecl.dev.uqam.ca
 
 replicaCount: 1
 image:
@@ -28,22 +43,22 @@ service:
 resources:
   # S'assurer de ne pas dépasser le quota du ns
   limits:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 600m
+    memory: 700Mi
   requests:
-    cpu: 50m
-    memory: 128Mi
+    cpu: 10m
+    memory: 50Mi
   cron:    
     limits:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 150m
+      memory: 200Mi
     requests:
-      cpu: 50m
+      cpu: 10m
       memory: 50Mi
   # Resources pour memcached applicative
   memapp:    
     limits:
-      cpu: 100m
+      cpu: 50m
       # Dans les paramètres memcached le -m est le max de RAM
       # cette valeur doit être juste une petite peu grande
       memory: 150Mi
@@ -53,7 +68,7 @@ resources:
   # Ressources pour memcached de sessions
   memses:    
     limits:
-      cpu: 100m
+      cpu: 50m
       memory: 150Mi
     requests:
       cpu: 5m
