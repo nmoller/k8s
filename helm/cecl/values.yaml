@@ -2,14 +2,29 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-
-#namespace: siad-moodlececl-prod-01
-#pvc: pvc-siad-moodlececl-prod-01-vol01
+######
+# Prod
+######
+# namespace: siad-moodlececl-prod-01
+# pvc: pvc-siad-moodlececl-prod-01-vol01
 #port: 30087
 #appname: cecl-prod
 #dbtype: mysqli
 #wwwroot: https://moodle-cecl.uqam.ca
-#
+
+######
+# Dev
+######
+namespace: siad-moodlececl-dev-01
+pvc: pvc-siad-moodlececl-dev-01-vol01
+#port: 30070
+appname: cecl-dev
+#dbtype: mariadb
+#wwwroot: https://moodle-cecl.dev.uqam.ca
+newrelic: true
+newrelicApp: "moodle-cecl"
+newrelicKey: "toto"
+
 
 # Pendent les test on veut valider ce qui se passe sur chaque
 # worker (specificWorker: true) 
@@ -18,19 +33,14 @@
 specificWorker: false
 worker: chaland
 
-namespace: siad-moodlececl-dev-01
-pvc: pvc-siad-moodlececl-dev-01-vol01
-port: 30070
-appname: ame01-prod
-dbtype: mariadb
-wwwroot: https://moodle-cecl.dev.uqam.ca
+
 
 replicaCount: 1
 image:
   repository: nmolleruq
   name: mdlhb-cecl
   cronname: mdlhb-cecl-cron
-  tag: v1.5
+  tag: v1.7
   crontag: v1.5
   pullPolicy: IfNotPresent
   
@@ -43,8 +53,8 @@ service:
 resources:
   # S'assurer de ne pas dépasser le quota du ns
   limits:
-    cpu: 600m
-    memory: 700Mi
+    cpu: 6500m
+    memory: 3Gi
   requests:
     cpu: 10m
     memory: 50Mi

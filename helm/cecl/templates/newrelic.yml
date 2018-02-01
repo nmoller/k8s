@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: newrelic
+  namespace: {{ .Values.namespace | default "siad-moodle-dev-01" }}
+type: Opaque
+data:
+  {{ if .Values.newrelic }}
+  newrelicapp: {{ .Values.newrelicApp | b64enc | quote }}
+  newrelickey: {{ .Values.newrelicKey | b64enc | quote }}
+  {{ end }}

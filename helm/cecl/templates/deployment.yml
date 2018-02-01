@@ -71,6 +71,18 @@ spec:
             secretKeyRef:
               name: secrets-moodle01-dev
               key: db_password
+        {{ if .Values.newrelic }}
+        - name: NEW_RELIC_APP_NAME
+          valueFrom:
+            secretKeyRef:
+              name: newrelic
+              key: newrelicapp
+        - name: NR_INSTALL_KEY
+          valueFrom:
+            secretKeyRef:
+              name: newrelic
+              key: newrelickey
+        {{ end }}
         volumeMounts:
         #- mountPath: /SANcache
         #  name: moodle-cache01

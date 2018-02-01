@@ -1,0 +1,29 @@
+#####################################
+# Pour aller chercher les fichiers de
+# /SANweb/hdata/moodledata/cecl/filedir
+# dans le filedir du cluster.
+####################################
+kind: Pod
+apiVersion: v1
+metadata:
+  name: moodle-rsync
+  namespace: {{ .Values.namespace }}
+spec:
+  volumes:
+    - name: moodle01-storage
+      persistentVolumeClaim:
+       claimName: {{ .Values.pvc }}
+
+  containers:
+    - name: rsync
+      image: osism/rsync-ssh
+      volumeMounts:
+      - mountPath: "/mnt/NFS"
+        name: moodle01-storage
+      resources:
+            limits:
+              cpu: 200m
+              memory: 500Mi
+            requests:
+              cpu: 10m
+              memory: 5Mi
