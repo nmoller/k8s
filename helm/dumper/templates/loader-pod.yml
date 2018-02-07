@@ -2,15 +2,15 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: loader-pod
-  namespace: siad-moodlececl-dev-01
+  namespace: {{ .Values.namespace | default "not_defined" }}
 spec:
   volumes:
   - name: moodle01-storage
     persistentVolumeClaim:
-     claimName: pvc-siad-moodlececl-dev-01-vol01
+     claimName: {{ .Values.pvc | default "not_defined" }}
   containers:
   - image: mysqlboy/docker-mydumper
-    name: dumper
+    name: loader-{{ .Values.bckdate | default "not_defined }}
     resources:
       limits:
         cpu: 400m
@@ -19,57 +19,38 @@ spec:
         cpu: 100m
         memory: 100Mi
     env:
-    - name: MDL_DBTYPE
-      valueFrom:
-        configMapKeyRef:
-          name: moodle01-config
-          key: dbtype
     - name: MDL_DATAROOT
       valueFrom:
         configMapKeyRef:
           name: moodle01-config
           key: dataroot
-    - name: MDL_MEMSESSION
-      valueFrom:
-        configMapKeyRef:
-          name: moodle01-config
-          key: memsession
-    - name: MDL_LOCALCACHEDIR
-      valueFrom:
-        configMapKeyRef:
-          name: moodle01-config
-          key: localcachedir
-    - name: MDL_WWWROOT
-      valueFrom:
-        configMapKeyRef:
-          name: moodle01-config
-          key: wwwroot
     - name: MDL_DBHOST
       valueFrom:
         secretKeyRef:
-          name: secrets-moodle01-prod
+          name: {{ .Values.secrets | default "secrets-moodle01-prod" }}
           key: db_host
     - name: MDL_DBNAME
       valueFrom:
         secretKeyRef:
-          name: secrets-moodle01-prod
+          name: {{ .Values.secrets | default "secrets-moodle01-prod" }}
           key: db_name
     - name: MDL_DBUSER
       valueFrom:
         secretKeyRef:
-          name: secrets-moodle01-prod
+          name: {{ .Values.secrets | default "secrets-moodle01-prod" }}
           key: db_username
     - name: MDL_DBPASS
       valueFrom:
         secretKeyRef:
-          name: secrets-moodle01-prod
+          name: {{ .Values.secrets | default "secrets-moodle01-prod" }}
           key: db_password
     volumeMounts:
-    - mountPath: /var/www/moodledata
+    - mountPath: {{ .Values.dataroot | default "/mnt/NFS" }}
       name: moodle01-storage
     args:
     - /bin/sh
     - -c
-    - myloader --user=${MDL_DBUSER} --password=${MDL_DBPASS} --host=${MDL_DBHOST} --directory="/var/www/moodledata/backups/2017-08-28_12:14:53" --overwrite-tables --threads=10 --compress-protocol
-    # - "trap : TERM INT; sleep infinity & wait"
+    - myloader --user=${MDL_DBUSER} --password=${MDL_DBPASS} --host=${MDL_DBHOST} \
+      --directory="${MDL_DATAROOT}/backups/{{ .Values.bckdate | default "not_defined" }}" 
+      --overwrite-tables --threads=10 --compress-protocol
   restartPolicy: Never
