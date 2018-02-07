@@ -1,3 +1,25 @@
+
+namespace: siad-moodlececl-dev-01
+pvc: pvc-siad-moodlececl-dev-01-vol01
+secrets: secrets-moodle01-dev
+# Seulement si <> de /mnt/NFS
+# pour moodleame /var/www/moodledata
+# dataroot: /var/www
+# bd: cecl # valeur par défaut
+
+
+##### Prod
+# namespace: siad-moodlececl-prod-01
+# pvc: pvc-siad-moodlececl-prod-01-vol01
+# bd: moodleame
+
+
+
+#################################################################
+# Par paresse, on laisse les valeurs originalles.
+# Quand on sera rendu au refactoring ce seront nettoyés.
+# 
+# ####################################################
 # Default values for dumper.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
