@@ -10,7 +10,7 @@ spec:
      claimName: {{ .Values.pvc | default "not_defined" }}
   containers:
   - image: mysqlboy/docker-mydumper
-    name: loader-{{ .Values.bckdate | default "not_defined }}
+    name: loader-{{ .Values.bckdate | default "not_defined" }}
     resources:
       limits:
         cpu: 400m

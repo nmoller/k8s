@@ -1,7 +1,8 @@
 
 namespace: siad-moodlececl-dev-01
 pvc: pvc-siad-moodlececl-dev-01-vol01
-secrets: secrets-moodle01-dev
+# secrets: secrets-moodle01-dev
+secrets: m2db1-values
 bckdate: 2017-08-28_12:14:53
 # Seulement si <> de /mnt/NFS
 # pour moodleame /var/www/moodledata
