@@ -53,7 +53,7 @@ spec:
     - -c
     - mydumper --user=${MDL_DBUSER} --password=${MDL_DBPASS} --host=${MDL_DBHOST} \ 
       --outputdir=${MDL_DATAROOT}/backups/$( date +%Y-%m-%d_%T ) --rows=500000 \
-      --compress --build-empty-files --threads=4 --compress-protocol -k --lock-all-tables \
+      --compress --build-empty-files --threads=4 --compress-protocol --trx-consistency-only \
       -v 3 \
       --database {{ .Values.bd | default "cecl" }}
   restartPolicy: Never
