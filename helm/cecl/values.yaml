@@ -15,11 +15,11 @@ wwwroot: https://moodle-cecl.uqam.ca
 ######
 # Dev
 ######
-#namespace: siad-moodlececl-dev-01
-#pvc: pvc-siad-moodlececl-dev-01-vol01
+# namespace: siad-moodlececl-dev-01
+# pvc: pvc-siad-moodlececl-dev-01-vol01
 #port: 30070
-#appname: ame01-prod
-#dbtype: mariadb
+# appname: ame01-prod
+# dbtype: mysqli
 #wwwroot: https://moodle-cecl.dev.uqam.ca
 newrelic: true
 newrelicApp: "moodle-cecl"
@@ -40,9 +40,8 @@ image:
   repository: nmolleruq
   name: mdlhb-cecl
   cronname: mdlhb-cecl-cron
-  #tag: v1.7
-  tag: v2.6
-  crontag: v1.5
+  tag: p1.0
+  crontag: p1.0
   pullPolicy: IfNotPresent
   
 service:
