@@ -6,6 +6,6 @@ metadata:
 data:
   dataroot: /mnt/NFS/moodledata
   wwwroot: {{ .Values.wwwroot }}
-  memsession: memcached-ses01.{{ .Values.namespace }}:11211
+  memsession: memcached-ses01.{{ .Values.namespace }}:11211;memcached-ses02.{{ .Values.namespace }}:11211
   localcachedir: /tmp/local
   dbtype: {{ .Values.dbtype }}

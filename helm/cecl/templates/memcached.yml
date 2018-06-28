@@ -12,9 +12,9 @@ spec:
     spec:
       containers:
       - name: mem-app
-        image: memcached:1.4.37
+        image: memcached:1.5.8
         command: ["memcached"]
-        args: ["-m", "145", "-c", "800"]
+        args: ["-m", "145", "-c", "800", "-I", "5m"]
         resources:
           limits:
             cpu: {{ .Values.resources.memapp.limits.cpu }}
@@ -40,9 +40,9 @@ spec:
     spec:
       containers:
       - name: mem-ses
-        image: memcached:1.4.37
+        image: memcached:1.5.8
         command: ["memcached"]
-        args: ["-m", "145", "-c", "800"]
+        args: ["-m", "145", "-c", "800", "-I", "10m"]
         resources:
           limits:
             cpu: {{ .Values.resources.memses.limits.cpu }}
