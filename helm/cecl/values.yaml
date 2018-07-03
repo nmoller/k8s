@@ -40,7 +40,7 @@ image:
   repository: nmolleruq
   name: mdlhb-cecl
   cronname: mdlhb-cecl-cron
-  tag: p1.0
+  tag: p1.3-dev
   crontag: p1.0
   pullPolicy: IfNotPresent
   
@@ -53,7 +53,7 @@ service:
 resources:
   # S'assurer de ne pas dépasser le quota du ns
   limits:
-    cpu: 2500m
+    cpu: 2100m
     memory: 3Gi
   requests:
     cpu: 10m
