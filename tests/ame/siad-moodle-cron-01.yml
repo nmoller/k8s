@@ -16,7 +16,7 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodleame-prod-01-vol01
           containers:
-          - image: nmolleruq/mdlcron:v1.24Saml
+          - image: nmolleruq/uqammdl:v1.26Saml
             name: moodle-cron01
             resources:
               limits:
@@ -76,8 +76,6 @@ spec:
             #  name: moodle-cache01
             - mountPath: /var/www/moodledata
               name: moodle01-storage
-            args:
-            - /bin/sh
-            - -c
-            - /tmp/generate-cron.sh 2> /dev/null
+            command: ["/bin/su"]
+            args: ["-s", "/bin/bash", "-c", "php /var/www/html/admin/cli/cron.php || echo 'Lock problems!'"]
           restartPolicy: Never
