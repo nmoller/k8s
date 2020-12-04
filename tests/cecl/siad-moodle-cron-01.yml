@@ -1,4 +1,4 @@
-apiVersion: batch/v2alpha1
+apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: moodle-cron01
@@ -16,15 +16,14 @@ spec:
             persistentVolumeClaim:
               claimName: pvc-siad-moodlececl-dev-01-vol01
           containers:
-          - image: nmolleruq/mdlhb-cecl:p1.5-poodll
-            name: moodle-cron01
-            resources:
-              limits:
-                cpu: 400m
-                memory: 300Mi
-              requests:
-                cpu: 100m
-                memory: 100Mi
+          - args:
+            - -s
+            - /bin/bash
+            - -c
+            - php /var/www/html/admin/cli/cron.php || echo 'Lock problems!'
+            command:
+            - /bin/su
+          
             env:
             - name: MDL_DBTYPE
               valueFrom:
@@ -52,32 +51,33 @@ spec:
                   name: moodle01-config
                   key: wwwroot
             - name: MDL_DBHOST
-              valueFrom:
-                secretKeyRef:
-                  name: secrets-moodle01-dev
-                  key: db_host
+              value: mysql.siad-moodlececl-dev-01
+
             - name: MDL_DBNAME
               valueFrom:
                 secretKeyRef:
                   name: secrets-moodle01-dev
                   key: db_name
             - name: MDL_DBUSER
-              valueFrom:
-                secretKeyRef:
-                  name: secrets-moodle01-dev
-                  key: db_username
+              value: root
+                
             - name: MDL_DBPASS
-              valueFrom:
-                secretKeyRef:
-                  name: secrets-moodle01-dev
-                  key: db_password
+              value: root
+
+            image: nmolleruq/mdlhb-cecl:p1.5-poodll
+            imagePullPolicy: IfNotPresent
+            name: moodle-cron01
+            resources:
+              limits:
+                cpu: 400m
+                memory: 300Mi
+              requests:
+                cpu: 100m
+                memory: 100Mi
             volumeMounts:
             #- mountPath: /SANcache
             #  name: moodle-cache01
             - mountPath: /mnt/NFS
               name: moodle01-storage
-            #args:
-            #- /bin/sh
-            #- -c
-            #- /tmp/generate-cron.sh 2> /dev/null
-          restartPolicy: OnFailure
+            
+          restartPolicy: Never

@@ -47,25 +47,19 @@ spec:
               name: moodle01-config
               key: wwwroot
         - name: MDL_DBHOST
-          valueFrom:
-            secretKeyRef:
-              name: secrets-moodle01-dev
-              key: db_host
+          value: mysql.siad-moodlececl-dev-01
+            
         - name: MDL_DBNAME
           valueFrom:
             secretKeyRef:
               name: secrets-moodle01-dev
               key: db_name
         - name: MDL_DBUSER
-          valueFrom:
-            secretKeyRef:
-              name: secrets-moodle01-dev
-              key: db_username
+          value: root
+            
         - name: MDL_DBPASS
-          valueFrom:
-            secretKeyRef:
-              name: secrets-moodle01-dev
-              key: db_password
+          value: root
+            
         volumeMounts:
         #- mountPath: /SANcache
         #  name: moodle-cache01
