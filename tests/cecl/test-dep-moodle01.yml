@@ -11,7 +11,7 @@ spec:
         app: ame01-prod
     spec:
       containers:
-      - image: nmolleruq/mdlhb-cecl:v1.5
+      - image: nmolleruq/mdlhb-cecl:p1.5-poodll
         name: moodle-web01
         resources:
             limits:
